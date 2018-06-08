@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="Fieldscribe_Windows_App.ScribesUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Fieldscribe_Windows_App"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="650"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
+    <Grid>
+        <StackPanel Margin="5">
+            <Border Background="#2e3137" CornerRadius="10" Margin="0,0" Height="auto">
+                <StackPanel Margin="10,10,10,0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="400"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="2">
+                                <DockPanel>
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Foreground="White" Kind="Magnify" Opacity=".99" 
+                                                         />
+                                    </Button>
+                                    <TextBox x:Name="ScribesTextFilter" Margin="8 0 0 0" Foreground="White"
+                                     materialDesign:HintAssist.Hint="Search for scribe" 
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                     TextChanged="txtFilter_TextChanged"
+                                     MinWidth="200" VerticalAlignment="Center" />
+                                </DockPanel>
+
+                            </Grid>
+
+                            
+                        </Grid>
+                        
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListBox x:Name="AssignedScribesList" Grid.Column="0" BorderBrush="Gray" BorderThickness="1"
+                               IsEnabled="{Binding Path=MeetSelected, Mode=TwoWay}" 
+                               SelectionChanged="AssignedScribesListBox_SelectionChanged"
+                               MouseEnter="AssignedScribesList_MouseEnter">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{1}, {0}    ({2})">
+                                                    <Binding Path="FirstName"/>
+                                                    <Binding Path="LastName"/>
+                                                    <Binding Path="Email"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+
+                            <Button Grid.Column ="1" x:Name="AddScribeBtn" Background="Transparent" BorderBrush="Transparent"
+                                    VerticalAlignment="Center" Margin="0,0,0,35" Padding="0,0,0,0" IsEnabled="False"
+                                    Click="AddScribeBtn_Click">
+                                <materialDesign:PackIcon Foreground="White" Kind="ArrowLeftBold" Opacity=".99"
+                                  Height="30" Width="30"/>
+                            </Button>
+
+                            <Button Grid.Column ="1" x:Name="RemoveScribeBtn" Background="Transparent" BorderBrush="Transparent"
+                                        VerticalAlignment="Center" Margin="0,35,0,0" Padding="0,0,0,0" IsEnabled="False"
+                                    Click="RemoveScribeBtn_Click">
+                                <materialDesign:PackIcon Foreground="White" Kind="ArrowRightBold" Opacity=".99"
+                                  Height="30" Width="30"/>
+                            </Button>
+
+
+
+                            <ListBox x:Name="ScribesList" Grid.Column="2" BorderBrush="Gray" BorderThickness="1"
+                                 IsEnabled="true" SelectionChanged="ScribesListBox_SelectionChanged" 
+                                 MouseEnter="ScribesList_MouseEnter">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{1}, {0}    ({2})">
+                                                    <Binding Path="FirstName"/>
+                                                    <Binding Path="LastName"/>
+                                                    <Binding Path="Email"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+
+                        
+
+                    </Grid>
+
+
+
+                    <!--<Label Content="Add Scribe" VerticalContentAlignment="Center" Foreground="White" FontSize="25" HorizontalAlignment="Center" />
+                    <Grid VerticalAlignment="Top" Height="242">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:PackIcon Kind="Account" Margin="0,0,0,0" Foreground="White" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" />
+                        <TextBox x:Name="FNameTextBox" materialDesign:HintAssist.Hint="First Name" Foreground="White" Grid.Column="1" Grid.Row="0">
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        
+                        <TextBox x:Name="LNameTextBox" materialDesign:HintAssist.Hint="Last Name" Foreground="White" Grid.Column="1" Grid.Row="1">
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <materialDesign:PackIcon Kind="Email" Margin="0,0,0,0" Grid.Column="0" Grid.Row="2" Foreground="White" VerticalAlignment="Center" RenderTransformOrigin="0.469,5.063" />
+                        <TextBox x:Name="EmailTextBox" materialDesign:HintAssist.Hint="Email" Foreground="White" Grid.Column="1" Grid.Row="2">
+                            <TextBox.Text>
+                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <materialDesign:PackIcon Kind="Earth" Margin="0,0,0,0" Grid.Column="0" Grid.Row="3" Foreground="White" VerticalAlignment="Center" RenderTransformOrigin="0.469,5.063" />
+                        <TextBox x:Name="MeetTextBox" materialDesign:HintAssist.Hint="Meet" Foreground="White" Grid.Column="1" Grid.Row="3">
+                            <TextBox.Text>
+                                <Binding Path="Meet" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <materialDesign:PackIcon Kind="Lock" Margin="0,0,0,0" Grid.Column="0" Grid.Row="4" Foreground="White" VerticalAlignment="Center" />
+                        <TextBox x:Name="PassTextBox" materialDesign:HintAssist.Hint="Pasword" Foreground="White" Grid.Column="1" Grid.Row="4">
+                            <TextBox.Text>
+                                <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button Margin="0,10,0,10" Grid.Column="1" Grid.Row="6">Submit</Button>
+                    </Grid>-->
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
