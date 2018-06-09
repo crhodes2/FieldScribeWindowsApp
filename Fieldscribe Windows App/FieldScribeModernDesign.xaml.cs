@@ -13,6 +13,7 @@ using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Net;
+using MaterialDesignThemes.Wpf;
 //using MaterialDesignThemes.Wpf;
 
 namespace Fieldscribe_Windows_App
@@ -140,8 +141,9 @@ namespace Fieldscribe_Windows_App
                 model.AssignedScribes = GetScribes(_appDataModel.SelectedMeet.MeetId);
 
                 // Filter Scribe from list
-                model.Scribes = model.Scribes.Where(x => !model.AssignedScribes
-                .Any(y => y.Id == x.Id)).ToList<User>();
+                if(model.AssignedScribes != null)
+                    model.Scribes = model.Scribes.Where(x => !model.AssignedScribes
+                    .Any(y => y.Id == x.Id)).ToList<User>();
             }
             else
             {
@@ -165,6 +167,8 @@ namespace Fieldscribe_Windows_App
                 }
             ))
             { _meets = GetMeets(); } // Refresh list of meets   
+
+            //RootDialogHost.IsOpen = false;
         }
 
         private void SaveMeetBtnClicked(object sender, RoutedEventArgs e)
@@ -390,6 +394,7 @@ namespace Fieldscribe_Windows_App
 
         private void RefreshMeetPicker(IList<Meet> meets)
         {
+            if(meets != null)
             setupPanel.MeetPicker.ItemsSource = meets.Select(meet => new Meet
             {
                 MeetDate = meet.MeetDate.Date,

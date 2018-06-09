@@ -1,6 +1,7 @@
 ﻿using Fieldscribe_Windows_App.Controllers;
 using Fieldscribe_Windows_App.Infrastructure;
 using Fieldscribe_Windows_App.Models;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,7 @@ namespace Fieldscribe_Windows_App
 
             _appDataModel = AppDataModel.Instance;
             _dataModel = ScribesPanelDataModel.Instance;
+            this.DataContext = ScribesPanelDataModel.Instance;
             _tokenManager = TokenManager.Instance;
 
             try
@@ -57,7 +59,8 @@ namespace Fieldscribe_Windows_App
                 CollectionView view = (CollectionView)CollectionViewSource
                     .GetDefaultView(ScribesList.ItemsSource);
 
-                view.Filter = ScribesFilter;
+                if(view != null)
+                    view.Filter = ScribesFilter;
 
                 ScribesTextFilter.Text = "";
             }
@@ -83,25 +86,69 @@ namespace Fieldscribe_Windows_App
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(ScribesList.ItemsSource)
-                .Refresh();
+            if(ScribesList.ItemsSource != null)
+                CollectionViewSource.GetDefaultView(ScribesList.ItemsSource)
+                    .Refresh();
         }
+
+        private void RegisterScribeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegisterScribeCreateBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteScribeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditScribeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditScribeSubmitBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ResetPasswordBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ResetPasswordSubmitBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         private void ScribesListBox_SelectionChanged(
             object sender, SelectionChangedEventArgs e)
         {
-            // Check button enable conditions
-            AddScribeBtn.IsEnabled = 
-                (_appDataModel.MeetSelected && ScribesList.SelectedIndex >= 0
-                && _dataModel.ScribesListSelected);
+            if(ScribesList.SelectedIndex >=0)
+            {
+                AssignedScribesList.SelectedIndex = -1;
+
+                AddScribeBtn.IsEnabled = _appDataModel.MeetSelected;
+            }
+            else { AddScribeBtn.IsEnabled = false; }
         }
 
         private void AssignedScribesListBox_SelectionChanged(
             object sender, SelectionChangedEventArgs e)
         {
-            RemoveScribeBtn.IsEnabled = 
-                (AssignedScribesList.SelectedIndex >= 0
-                && _dataModel.AssignedScribesListSelected);
+            if(AssignedScribesList.SelectedIndex >= 0)
+            {
+                ScribesList.SelectedIndex = -1;
+
+                RemoveScribeBtn.IsEnabled = true;
+            }
+            else { RemoveScribeBtn.IsEnabled = false; }
         }
 
 
@@ -224,28 +271,6 @@ namespace Fieldscribe_Windows_App
                 return users;
             }
             return null;
-        }
-
-
-        private void AssignedScribesList_MouseEnter(object sender, MouseEventArgs e)
-        {
-            _dataModel.AssignedScribesListSelected = true;
-
-            RemoveScribeBtn.IsEnabled =
-                (AssignedScribesList.SelectedIndex >= 0);
-
-            AddScribeBtn.IsEnabled = false;
-        }
-
-        private void ScribesList_MouseEnter(object sender, MouseEventArgs e)
-        {
-            _dataModel.ScribesListSelected = true;
-
-            AddScribeBtn.IsEnabled =
-                (_appDataModel.MeetSelected 
-                && ScribesList.SelectedIndex >= 0);
-
-            RemoveScribeBtn.IsEnabled = false;
         }
     }
 }

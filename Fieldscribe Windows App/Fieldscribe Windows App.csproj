@@ -225,6 +225,7 @@
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Infrastructure\NotEmptyValidationRule.cs" />
     <Compile Include="Infrastructure\TokenManager.cs" />
     <Compile Include="Infrastructure\FolderWatcher.cs" />
     <Compile Include="Infrastructure\ILynxFileService.cs" />

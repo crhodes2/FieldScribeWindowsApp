@@ -13,10 +13,10 @@ namespace Fieldscribe_Windows_App
     public static class FieldScribeAPIRequests
     {
         // live server
-        //public const string FieldScribeAPIRootAddress = "https://fieldscribeapi2017.azurewebsites.net/";
+        public const string FieldScribeAPIRootAddress = "https://fieldscribeapi2017.azurewebsites.net/";
 
         // local host (for testing / debugging)
-        public const string FieldScribeAPIRootAddress = "https://localhost:44357/";
+        //public const string FieldScribeAPIRootAddress = "https://localhost:44357/";
 
         private static readonly HttpClient client = new HttpClient();
 

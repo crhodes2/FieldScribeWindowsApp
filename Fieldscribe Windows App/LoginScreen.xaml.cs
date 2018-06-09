@@ -27,7 +27,6 @@ namespace Fieldscribe_Windows_App
     {
         private TokenManager _tokenManager;
         private bool _loginSuccess;
-        private Credentials _credentials;
         private AppDataModel _dataModel;
         //FSSplashScreen splash = new FSSplashScreen();
 
