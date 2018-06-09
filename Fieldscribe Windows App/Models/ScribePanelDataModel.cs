@@ -9,6 +9,7 @@ namespace Fieldscribe_Windows_App.Models
         private static ScribesPanelDataModel _instance = null;
         private static readonly object padlock = new object();
 
+        public string _name;
         private IList<User> _assignedScribes;
         private IList<User> _scribes;
         private bool _scribesListSelected;
@@ -20,6 +21,16 @@ namespace Fieldscribe_Windows_App.Models
             set
             {
                 _assignedScribes = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
                 NotifyPropertyChanged();
             }
         }
